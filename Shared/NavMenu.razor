@@ -1,0 +1,22 @@
+﻿@implements IDisposable
+@inject StateContainer StateContainer
+
+<p>Nested component Property: <b>@StateContainer.Property</b></p>
+
+@code {
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateHasChanged;
+    }
+
+    private void ChangePropertyValue()
+    {
+        StateContainer.Property = 
+            $"New value set in the Nested component: {DateTime.Now}";
+    }
+
+    public void Dispose()
+    {
+        StateContainer.OnChange -= StateHasChanged;
+    }
+}

@@ -1,0 +1,31 @@
+﻿@page "/counter"
+@implements IDisposable
+@inject StateContainer StateContainer
+
+<h2>Nested component</h2>
+
+<p>Nested component Property: <b>@StateContainer.Property</b></p>
+
+<p>
+    <button @onclick="ChangePropertyValue">
+        Change the Property from the Nested component
+    </button>
+</p>
+
+@code {
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateHasChanged;
+    }
+
+    private void ChangePropertyValue()
+    {
+        StateContainer.Property = 
+            $"New value set in the Nested component: {DateTime.Now}";
+    }
+
+    public void Dispose()
+    {
+        StateContainer.OnChange -= StateHasChanged;
+    }
+}
